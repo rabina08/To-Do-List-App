@@ -1,0 +1,66 @@
+{% extends 'layout.html' %}
+{% block content %}
+
+<div class="mb-3">
+    <a href="{{ url_for('add_task') }}" class="btn btn-success">Add New Task</a>
+</div>
+
+<form method="get" class="row g-3">
+    <div class="col-md-3">
+        <select name="label" class="form-select">
+            <option value="">Filter by Label</option>
+            <option value="Work">Work</option>
+            <option value="Grocery">Grocery</option>
+            <option value="Study">Study</option>
+        </select>
+    </div>
+    <div class="col-md-3">
+        <select name="status" class="form-select">
+            <option value="">Filter by Status</option>
+            <option value="Pending">Pending</option>
+            <option value="In Progress">In Progress</option>
+            <option value="Completed">Completed</option>
+        </select>
+    </div>
+    <div class="col-md-3">
+        <select name="sort" class="form-select">
+            <option value="">Sort By</option>
+            <option value="due_date">Due Date</option>
+        </select>
+    </div>
+    <div class="col-md-3">
+        <button class="btn btn-primary w-100">Apply</button>
+    </div>
+</form>
+
+<hr>
+
+<table class="table table-striped">
+    <thead>
+    <tr>
+        <th>Title</th>
+        <th>Description</th>
+        <th>Due Date</th>
+        <th>Label</th>
+        <th>Status</th>
+        <th>Actions</th>
+    </tr>
+    </thead>
+    <tbody>
+    {% for task in tasks %}
+        <tr>
+            <td>{{ task.title }}</td>
+            <td>{{ task.description }}</td>
+            <td>{{ task.due_date }}</td>
+            <td>{{ task.label }}</td>
+            <td>{{ task.status }}</td>
+            <td>
+                <a href="{{ url_for('edit_task', id=task.id) }}" class="btn btn-sm btn-primary">Edit</a>
+                <a href="{{ url_for('delete_task', id=task.id) }}" class="btn btn-sm btn-danger">Delete</a>
+            </td>
+        </tr>
+    {% endfor %}
+    </tbody>
+</table>
+
+{% endblock %}

@@ -1,0 +1,36 @@
+{% extends 'layout.html' %}
+{% block content %}
+<h3>{{ 'Edit' if task else 'Add' }} Task</h3>
+
+<form method="post">
+    <div class="mb-3">
+        <label>Title</label>
+        <input name="title" class="form-control" value="{{ task.title if task else '' }}" required>
+    </div>
+    <div class="mb-3">
+        <label>Description</label>
+        <textarea name="description" class="form-control">{{ task.description if task else '' }}</textarea>
+    </div>
+    <div class="mb-3">
+        <label>Due Date</label>
+        <input type="date" name="due_date" class="form-control" value="{{ task.due_date if task else '' }}">
+    </div>
+    <div class="mb-3">
+        <label>Label</label>
+        <select name="label" class="form-select">
+            <option value="Work" {% if task.label == 'Work' %}selected{% endif %}>Work</option>
+            <option value="Grocery" {% if task.label == 'Grocery' %}selected{% endif %}>Grocery</option>
+            <option value="Study" {% if task.label == 'Study' %}selected{% endif %}>Study</option>
+        </select>
+    </div>
+    <div class="mb-3">
+        <label>Status</label>
+        <select name="status" class="form-select">
+            <option value="Pending" {% if task.status == 'Pending' %}selected{% endif %}>Pending</option>
+            <option value="In Progress" {% if task.status == 'In Progress' %}selected{% endif %}>In Progress</option>
+            <option value="Completed" {% if task.status == 'Completed' %}selected{% endif %}>Completed</option>
+        </select>
+    </div>
+    <button class="btn btn-primary">{{ 'Update' if task else 'Add' }}</button>
+</form>
+{% endblock %}
